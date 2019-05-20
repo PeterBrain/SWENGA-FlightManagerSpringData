@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<div th:replace="~{includes/bootstrapMeta :: bootstrapMeta}" />
+<title>Flight Manager</title>
+<div th:replace="~{includes/bootstrapCSS :: bootstrapCSS}" />
+</head>
+<body>
+	<div class="container" role="main">
+		<!--  1 simple button ----------------------------------------------------------- -->
+		<div class="row">
+			<div class="col-md-10">
+				<h1>Spring Data JPA</h1>
+			</div>
+
+			<div class="col-md-2">
+				<a href="fillFlightList">
+					<button type="button" class="btn btn-success">Fill List</button>
+				</a>
+			</div>
+		</div>
+
+		<!--  search by Id ----------------------------------------------------------- -->
+		<form action="findById" method="post">
+			<div class="form-row">
+				<div class="form-group col-sm-12">
+					<label for="id">Find by Id:</label>
+					<input id="id" type="text" class="form-control" name="id">
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-group col-sm-12">
+					<input class="btn btn-primary" type="submit" value="Do it">
+				</div>
+			</div>
+		</form>
+
+		<!--  paging example ----------------------------------------------------------- -->
+		<form action="getPage" method="post">
+			<div class="form-row">
+				<div class="form-group col-sm-6">
+					<label for="page">Page:</label>
+					<input id="page" type="text" class="form-control" name="page">
+				</div>
+				<div class="form-group col-sm-6">
+					<label for="size">Size:</label>
+					<input id="size" type="text" class="form-control" name="size">
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-group col-sm-12">
+					<input class="btn btn-primary" type="submit" value="Do it">
+				</div>
+			</div>
+		</form>
+
+
+		<!--  Search + Fill ----------------------------------------------------------- -->
+		<form method="post" action="find">
+			<div class="form-row">
+				<div class="form-group col-sm-6">
+					<label for="searchType">Search:</label> <select id="searchType" class="form-control" name="searchType">
+						<option value="query1" selected="selected">Show all flights</option>
+						<option value="query2">Filter flights by origin</option>
+						<option value="query3">Filter flights by destination</option>
+						<option value="query4">Filter flights by origin or destination</option>
+						<option value="query5">Search with named query</option>
+						<option value="query6">Count flights by origin</option>
+						<option value="query7">Delete flights with given origin</option>
+						<option value="query8">Delete all flights with specific aircraft model</option>
+						<option value="query9">List of flights where origin or destination contains a given search string</option>
+						<option value="query10">Order list by destination</option>
+						<option value="query11">Sort all flights by destination ascending (top 10)</option>
+					</select>
+				</div>
+				<div class="form-group col-sm-6">
+					<label for="searchString">SearchString:</label>
+					<input id="searchString" class="form-control" type="text" name="searchString">
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-group col-sm-12">
+					<input class="btn btn-primary" type="submit" value="Do it">
+				</div>
+			</div>
+		</form>
+
+		<!--  Search + Fill ----------------------------------------------------------- -->
+		<h3>
+			Count: <span th:text="${count}"></span>
+		</h3>
+
+		<div class="row">
+			<div class="col-md-12 offset-md-0">
+
+				<table data-toggle="table" class="table table-striped">
+					<thead>
+						<tr>
+							<th data-sortable="true">ID</th>
+							<th data-sortable="true">Aircraft</th>
+							<th data-sortable="true">Origin</th>
+							<th data-sortable="true">Destination</th>
+							<th data-sortable="true">Departure</th>
+							<th data-sortable="true">Arrival</th>
+							<th data-sortable="true">Passengers</th>
+							<th data-sortable="true">Airline</th>
+							<th data-sortable="true">Status</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<!--  list all items ----------------------------------------------------------- -->
+						<tr th:each="flight : ${flights}">
+							<td th:text="${flight.flightId}"></td>
+							<td th:text="${flight.aircraft.model}"></td>
+							<td th:text="${flight.origin}"></td>
+							<td th:text="${flight.destination}"></td>
+							<td th:text="${#dates.format(flight.departure,'dd.MM.yyyy HH:mm')}"></td>
+							<td th:text="${#dates.format(flight.arrival,'dd.MM.yyyy HH:mm')}"></td>
+							<td th:text="${flight.numberOfPassengers}"></td>
+							<td th:text="${flight.airline}"></td>
+							<td th:text="${flight.cancelled} ? Cancelled"></td>
+							<td><a th:href="@{/delete(id=${flight.flightId})}" class="btn btn-danger">Delete</a></td>
+						</tr>
+						<!--  list all items ----------------------------------------------------------- -->
+					</tbody>
+				</table>
+
+			</div>
+		</div>
+	</div>
+	<!--  End of container -->
+	<div th:replace="~{includes/bootstrapJS :: bootstrapJS}" />
+</body>
+</html>
