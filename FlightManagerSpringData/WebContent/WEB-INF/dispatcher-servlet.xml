@@ -28,14 +28,12 @@
 
 
 	<!-- Read settings from external file and replace all ${...} in the xml -->
-	<context:property-placeholder
-		location="classpath:db.properties" />
+	<context:property-placeholder location="classpath:db.properties" />
 
 
 	<!-- - POJOs labeled with the @Controller, @Service,..... annotations are 
 		auto-detected. -->
-	<context:component-scan
-		base-package="at.fh.swenga" />
+	<context:component-scan base-package="at.fh.swenga" />
 
 	<!-- ################################################################ -->
 
@@ -45,7 +43,6 @@
 	<!-- ################################################################ -->
 
 	<!-- <bean class="org.springframework.data.web.config.SpringDataWebConfiguration"/> -->
-
 
 	<bean id="conversionService"
 		class="org.springframework.format.support.FormattingConversionServiceFactoryBean" />
@@ -80,8 +77,7 @@
 	<mvc:default-servlet-handler />
 
 
-	<bean id="templateResolver"
-		class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver">
+	<bean id="templateResolver" class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver">
 		<property name="prefix" value="/WEB-INF/templates/" />
 		<property name="suffix" value=".html" />
 		<property name="templateMode" value="HTML5" />
@@ -100,10 +96,8 @@
 
 	<!-- ################################################################ -->
 
-	<bean id="dataSource"
-		class="org.apache.commons.dbcp2.BasicDataSource">
-		<property name="driverClassName"
-			value="com.mysql.jdbc.Driver" />
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="${db.url}" />
 		<property name="username" value="${db.username}" />
 		<property name="password" value="${db.password}" />
@@ -111,31 +105,26 @@
 		<property name="maxTotal" value="5" />
 	</bean>
 
-	<bean
-		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
-		id="entityManagerFactory">
+	<bean class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" id="entityManagerFactory">
 		<property name="dataSource" ref="dataSource" />
 		<property name="packagesToScan" value="at.fh.swenga" />
 		<property name="jpaVendorAdapter">
-			<bean
-				class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
 		</property>
 		<property name="jpaProperties">
 			<props>
 				<!-- validate: validate the schema, makes no changes to the database. 
 					update: update the schema. create: creates the schema, destroying previous 
 					data. create-drop: drop the schema at the end of the session. -->
-				<prop key="hibernate.hbm2ddl.auto">create-drop</prop><!-- create-drop update -->
+				<prop key="hibernate.hbm2ddl.auto">create-drop</prop><!-- create-drop or update -->
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
 			</props>
 		</property>
 	</bean>
 
-	<bean id="transactionManager"
-		class="org.springframework.orm.jpa.JpaTransactionManager">
-		<property name="entityManagerFactory"
-			ref="entityManagerFactory" />
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
 
 	<tx:annotation-driven />

@@ -22,7 +22,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "Flight")
 
 @NamedQueries({
-		@NamedQuery(name = "FlightModel.findByNamedQuery", query = "SELECT e FROM FlightModel e WHERE e.origin LIKE :searchString OR e.destination LIKE :searchString")
+	@NamedQuery(name = "FlightModel.findByNamedQuery", query = "SELECT e FROM FlightModel e WHERE e.origin LIKE :searchString OR e.destination LIKE :searchString")
 })
 
 public class FlightModel implements java.io.Serializable {

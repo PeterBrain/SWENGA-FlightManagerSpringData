@@ -78,7 +78,8 @@ public class FlightController {
 			flights = flightRepository.deleteByAircraftModel(searchString);
 			break;
 		case "query9":
-			flights = flightRepository.findByOriginContainingOrDestinationContainingAllIgnoreCase(searchString, searchString);
+			flights = flightRepository.findByOriginContainingOrDestinationContainingAllIgnoreCase(searchString,
+					searchString);
 			break;
 		case "query10":
 			flights = flightRepository.sortByDestinationAsc();
@@ -115,31 +116,37 @@ public class FlightController {
 	public String fillData(Model model) {
 
 		/*AircraftModel aircraft = null;
-
+		 
 		for (int i = 0; i < aircrafts.length; i++) {
 			if (i % 10 == 0) {
-				String aircraftModel = aircrafts[i];
-				aircraft = aircraftRepository.findFirstByModel(aircraftModel);
-				
-				if (aircraft == null) {
-					aircraft = new AircraftModel(aircraftModel);
-				}
+				String aircraftModel = aircrafts[i]; aircraft = aircraftRepository.findFirstByModel(aircraftModel);
+			
+				if (aircraft == null) { aircraft = new AircraftModel(aircraftModel); }
 			}
-		}*/
+		}
 
-		/*FlightModel flightModel = new FlightModel();
+		FlightModel flightModel = new FlightModel();
 		flightModel.setAircraft(aircraft);
-		flightRepository.save(flightModel);*/
-		
+		flightRepository.save(flightModel);
+		*/
+
 		Date now = new Date();
-		flightRepository.save(new FlightModel(flightRepository.findAll().size() + 1, aircraftRepository.save(new AircraftModel("Boeing 737")), "Germany", "Spain", now, now, 148, "Lufthansa", false));
-		flightRepository.save(new FlightModel(flightRepository.findAll().size() + 1, aircraftRepository.save(new AircraftModel("Boeing 767")), "Austria", "Belgium", now, now, 72, "Austrian", true));
-		flightRepository.save(new FlightModel(flightRepository.findAll().size() + 1, aircraftRepository.save(new AircraftModel("Boeing 777")), "France", "Portugal", now, now, 65, "Eurowings", false));
-		flightRepository.save(new FlightModel(flightRepository.findAll().size() + 1, aircraftRepository.save(new AircraftModel("Airbus A380")), "Germany", "Thailand", now, now, 225, "Emirates", false));
-		flightRepository.save(new FlightModel(flightRepository.findAll().size() + 1, aircraftRepository.findFirstByModel("Boeing 767"), "Switzerland", "Germany", now, now, 103, "Swiss", false));
-		flightRepository.save(new FlightModel(flightRepository.findAll().size() + 1, aircraftRepository.save(new AircraftModel("Airbus A320")), "Spain", "Portugal", now, now, 62, "Iberia", true));
-		flightRepository.save(new FlightModel(flightRepository.findAll().size() + 1, aircraftRepository.save(new AircraftModel("Boeing 747")), "France", "Sweden", now, now, 98, "Norwegian", false));
-		flightRepository.save(new FlightModel(flightRepository.findAll().size() + 1, aircraftRepository.findFirstByModel("Boeing 737"), "Sweden", "Spain", now, now, 46, "Iberia", false));
+		flightRepository.save(new FlightModel(flightRepository.findAll().size() + 1,
+				aircraftRepository.save(new AircraftModel("Boeing 737")), "Germany", "Spain", now, now, 148, "Lufthansa", false));
+		flightRepository.save(new FlightModel(flightRepository.findAll().size() + 1,
+				aircraftRepository.save(new AircraftModel("Boeing 767")), "Austria", "Belgium", now, now, 72, "Austrian", true));
+		flightRepository.save(new FlightModel(flightRepository.findAll().size() + 1,
+				aircraftRepository.save(new AircraftModel("Boeing 777")), "France", "Portugal", now, now, 65, "Eurowings", false));
+		flightRepository.save(new FlightModel(flightRepository.findAll().size() + 1,
+				aircraftRepository.save(new AircraftModel("Airbus A380")), "Germany", "Thailand", now, now, 225, "Emirates", false));
+		flightRepository.save(new FlightModel(flightRepository.findAll().size() + 1,
+				aircraftRepository.findFirstByModel("Boeing 767"), "Switzerland", "Germany", now, now, 103, "Swiss", false));
+		flightRepository.save(new FlightModel(flightRepository.findAll().size() + 1,
+				aircraftRepository.save(new AircraftModel("Airbus A320")), "Spain", "Portugal", now, now, 62, "Iberia", true));
+		flightRepository.save(new FlightModel(flightRepository.findAll().size() + 1,
+				aircraftRepository.save(new AircraftModel("Boeing 747")), "France", "Sweden", now, now, 98, "Norwegian", false));
+		flightRepository.save(new FlightModel(flightRepository.findAll().size() + 1,
+				aircraftRepository.findFirstByModel("Boeing 737"), "Sweden", "Spain", now, now, 46, "Iberia", false));
 
 		return "forward:list";
 	}
